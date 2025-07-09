@@ -48,6 +48,30 @@ Console.WriteLine(TicketCodeFactory.Generate("$yyyy$mm-$a(u){7}-SALES"));
 | `$yy`   | Year (last two digits)               |
 | `$yyyy` | Year (four digits)                   |
 
+## Quantifiers
+
+TicketCode supports quantifiers, allowing you to specify how many times a given token should repeat. Quantifiers are expressed with curly braces: `{n}`.
+
+**How quantifiers work:**
+
+* Place `{n}` immediately after any token or token + modifier combination.
+* The token will be repeated exactly `n` times in the generated code.
+* Example: `$a{6}` generates 6 random alphanumeric characters.
+* You can use quantifiers with any supported token:
+
+  * `$l(u){4}` → 4 uppercase letters
+  * `$n{3}` → 3 digits
+  * `$a(l){8}` → 8 lowercase alphanumerics
+* If a quantifier is omitted, the token is used only once (default is 1).
+
+**Examples:**
+
+* `$l(u){5}` → `QKMTN` (five uppercase letters)
+* `$n{4}` → `2941` (four digits)
+* `$a{8}` → `mY72tFaW` (eight alphanumeric characters)
+
+You can freely combine quantifiers with other tokens, modifiers, and static text to form complex patterns.
+
 ## Requirements
 
 * .NET Standard 2.0+
