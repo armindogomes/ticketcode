@@ -1,6 +1,6 @@
 # TicketCode
 
-TicketCode is a flexible .NET library for generating ticket codes from pattern-based expressions. Build codes for tickets, coupons, or IDs using a concise and developer-friendly DSL. Supports uppercase and lowercase letters, digits, and date tokens. Built on ANTLR.
+TicketCode is a very small .NET library for generating ticket codes from pattern-based expressions. Build codes for tickets, coupons, or IDs using a concise and developer-friendly DSL. Supports uppercase and lowercase letters, digits, and date tokens. Built on ANTLR.
 
 ## Features
 
