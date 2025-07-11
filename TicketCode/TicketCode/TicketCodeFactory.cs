@@ -1,4 +1,5 @@
 ﻿using System;
+using Antlr4.Runtime;
 using TicketCode.Grammar;
 
 namespace TicketCode {
@@ -7,12 +8,16 @@ namespace TicketCode {
 
 		public static string Generate(string pattern) {
 			if (pattern == null) {
-				throw new ArgumentNullException(nameof(pattern));
+				throw new ArgumentNullException(nameof(pattern), "Pattern cannot be null");
 			}
 
-			var inputStream = new Antlr4.Runtime.AntlrInputStream(pattern);
+			if (string.IsNullOrWhiteSpace(pattern)) {
+				throw new ArgumentException("Pattern cannot be empty.", nameof(pattern));
+			}
+
+			var inputStream = new AntlrInputStream(pattern);
 			var lexer = new TicketCodeLexer(inputStream);
-			var tokens = new Antlr4.Runtime.CommonTokenStream(lexer);
+			var tokens = new CommonTokenStream(lexer);
 			var parser = new TicketCodeParser(tokens);
 
 			var tree = parser.pattern();
