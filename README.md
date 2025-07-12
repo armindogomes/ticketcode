@@ -1,6 +1,8 @@
 # TicketCode
 
-TicketCode is a very small .NET library for generating ticket codes from pattern-based expressions. Build codes for tickets, coupons, or IDs using a concise and developer-friendly DSL. Supports uppercase and lowercase letters, digits, and date tokens. Built on ANTLR.
+**Still in development**
+
+TicketCode is a simple .NET library meant to help generate codes for tickets, coupons, or IDs based on pattern expressions. This project is not meant to be revolutionary or ambitious — just a small tool to make life a bit easier if you need to generate codes in a flexible way using an easy DSL. The project is evolving and may change a lot over time.
 
 ## Features
 
@@ -30,6 +32,14 @@ using TicketCode;
 Console.WriteLine(TicketCodeFactory.Generate("TICKET-$yyyy-$mm-$l(u){10}"));
 Console.WriteLine(TicketCodeFactory.Generate("CUPOM-$yyyy-$a(u){10}"));
 Console.WriteLine(TicketCodeFactory.Generate("$yyyy$mm-$a(u){7}-SALES"));
+Console.WriteLine(TicketCodeFactory.Generate("PROMO-$yyyy-$a(u){7}"));
+Console.WriteLine(TicketCodeFactory.Generate("PROMO-$mm$yy-$a(u){7}"));
+
+//TICKET-2025-07-GXXDKWXAZZ
+//CUPOM-2025-JS6B7A4984
+//202507-6O22IP9-SALES
+//PROMO-2025-W1XGC1K
+//PROMO-0725-6715595
 ```
 
 ## Supported Tokens
@@ -50,19 +60,7 @@ Console.WriteLine(TicketCodeFactory.Generate("$yyyy$mm-$a(u){7}-SALES"));
 
 ## Quantifiers
 
-TicketCode supports quantifiers, allowing you to specify how many times a given token should repeat. Quantifiers are expressed with curly braces: `{n}`.
-
-**How quantifiers work:**
-
-* Place `{n}` immediately after any token or token + modifier combination.
-* The token will be repeated exactly `n` times in the generated code.
-* Example: `$a{6}` generates 6 random alphanumeric characters.
-* You can use quantifiers with any supported token:
-
-  * `$l(u){4}` → 4 uppercase letters
-  * `$n{3}` → 3 digits
-  * `$a(l){8}` → 8 lowercase alphanumerics
-* If a quantifier is omitted, the token is used only once (default is 1).
+TicketCode lets you specify how many times each token is repeated, using `{n}` after the token.
 
 **Examples:**
 
@@ -70,7 +68,7 @@ TicketCode supports quantifiers, allowing you to specify how many times a given 
 * `$n{4}` → `2941` (four digits)
 * `$a{8}` → `mY72tFaW` (eight alphanumeric characters)
 
-You can freely combine quantifiers with other tokens, modifiers, and static text to form complex patterns.
+You can freely combine quantifiers with other tokens, modifiers, and static text to create any patterns you need.
 
 ## Requirements
 
