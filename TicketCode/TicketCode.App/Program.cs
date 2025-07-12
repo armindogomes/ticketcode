@@ -17,3 +17,5 @@ Console.WriteLine("\nRealistic example");
 Console.WriteLine(TicketCodeFactory.Generate("TICKET-$yyyy-$mm-$l(u){10}"));
 Console.WriteLine(TicketCodeFactory.Generate("CUPOM-$yyyy-$a(u){10}"));
 Console.WriteLine(TicketCodeFactory.Generate("$yyyy$mm-$a(u){7}-SALES"));
+Console.WriteLine(TicketCodeFactory.Generate("PROMO-$yyyy-$a(u){7}"));
+Console.WriteLine(TicketCodeFactory.Generate("PROMO-$mm$yy-$a(u){7}"));
