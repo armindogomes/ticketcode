@@ -1,0 +1,36 @@
+name: Publish package
+
+on:
+  push:
+    tags:
+      - release-ticketcode-*
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore CNH/ValidaCNH.sln
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore TicketCode/TicketCode.sln
+
+    #- name: Run Tests
+    #  run: dotnet test --no-build --verbosity normal CNH/ValidaCNH.sln
+
+    - name: Pack Library
+      run: dotnet pack TicketCode/TicketCode/TicketCode.csproj --configuration Release --no-build --output ./nupkg
+
+    - name: Publish to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
